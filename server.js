@@ -31,7 +31,7 @@ app.post("/upload", upload.array("fotos", 500), (req, res) => {
 });
 
 app.post("/genereer", (req, res) => {
-  const { paden, kolommen, rijen, breedte, hoogte } = req.body;
+  const { paden, kolommen, rijen, breedte, hoogte, gap } = req.body;
 
   if (!paden || paden.length === 0) {
     return res.status(400).json({ fout: "Geen foto's ontvangen" });
@@ -41,12 +41,13 @@ app.post("/genereer", (req, res) => {
   const padenArg = paden.map(p => `"${p}"`).join(" ");
   const pythonScript = path.join(__dirname, "collage.py");
 
-  const cmd = `python3 "${pythonScript}" \
+  const cmd = `arch -arm64 python3 "${pythonScript}" \
     --uitvoer "${uitvoer}" \
     --kolommen ${kolommen} \
     --rijen ${rijen} \
     --breedte ${breedte} \
     --hoogte ${hoogte} \
+    --gap ${gap ?? 6} \
     --fotos ${padenArg}`;
 
   exec(cmd, { maxBuffer: 1024 * 1024 * 10 }, (err, stdout, stderr) => {
