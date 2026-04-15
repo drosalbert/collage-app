@@ -1,0 +1,38 @@
+{
+  "name": "collage-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node server.js",
+    "build": "electron-builder --mac --arm64"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "electron": "^41.2.0",
+    "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId": "nl.albertdros.collagemaker",
+    "productName": "Collage Maker",
+    "mac": {
+      "category": "public.app-category.photography",
+      "target": "dmg"
+    },
+    "extraResources": [
+      {
+        "from": "collage.py",
+        "to": "collage.py"
+      }
+    ],
+    "files": [
+      "main.js",
+      "server.js",
+      "index.html",
+      "node_modules/**/*"
+    ]
+  }
+}

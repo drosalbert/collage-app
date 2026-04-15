@@ -1,0 +1,8 @@
+#!/bin/bash
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+
+# Stop eventuele oude server op poort 3001
+lsof -ti :3001 | xargs kill -9 2>/dev/null
+
+cd /Users/albertdros/projects/collage-app
+npm start
